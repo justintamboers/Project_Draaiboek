@@ -40,6 +40,14 @@
             0
         </Label>
         <Label
+            Name="uitkomst_txt"
+            Margin="20"
+            FontSize="30"
+            Grid.Row="3"
+            Grid.Column="1">
+            
+        </Label>
+        <Label
             Margin="20"
             FontSize="30"
             Grid.Column="2">
