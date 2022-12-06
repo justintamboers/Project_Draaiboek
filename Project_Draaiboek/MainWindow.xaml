@@ -7,9 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid
-        Background="lightGreen">
+        Background="Gray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -18,85 +20,183 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <Viewbox>
         <Label
-            Margin="20"
             FontSize="30">
             Speler
         </Label>
+            </Viewbox>
+        <Viewbox
+            Grid.Row="4">
         <Label
             Name="speler_ptn"
-            Margin="20"
-            FontSize="30"
-            Grid.Row="3">
+            FontSize="30">
             0
         </Label>
+        </Viewbox>
+        <Viewbox
+            Grid.Row="4"
+            Grid.Column="4">
         <Label
             Name="bank_ptn"
-            Margin="20"
-            FontSize="30"
-            Grid.Row="3"
-            Grid.Column="2">
+            FontSize="30">
             0
         </Label>
-        <Label
-            Name="uitkomst_txt"
-            Margin="20"
-            FontSize="30"
+        </Viewbox>
+        <Viewbox
             Grid.Row="3"
             Grid.Column="1">
-            
-        </Label>
         <Label
-            Margin="20"
-            FontSize="30"
-            Grid.Column="2">
+            Name="uitkomst_txt"
+            FontSize="20">
+
+        </Label>
+        </Viewbox>
+        <Viewbox
+            Grid.Column="4">
+        <Label
+            FontSize="30">
             bank
         </Label>
-        <Button
-            Margin="20"
-            Name="btn_deel"
-            Grid.Column="1"
-            Grid.Row="0"
-            Click="btn_deel_Click"
-            IsEnabled="True">
-            Deel
-        </Button>
-        <Button
-            Margin="20"
-            Name="btn_hit"
-            Grid.Column="1"
+        </Viewbox>
+        <Viewbox
             Grid.Row="1"
-            Click="btn_hit_Click"
-            IsEnabled="False">
-            Hit
-        </Button>
-        <Button
-            Margin="20"
-            Name="btn_stand"
+            Grid.Column="1">
+        <Label
+            FontSize="20"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            >
+            Inzet:
+        </Label>
+        </Viewbox>
+        <Viewbox
             Grid.Column="1"
-            Grid.Row="2"
-            Click="btn_stand_Click"
+            Grid.Row="2">
+        <Label
+            FontSize="20"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right">
+            Kapitaal:
+        </Label>
+</Viewbox>
+        <Viewbox
+            Grid.Column="3"
+            Grid.Row="0"
+            Margin="20">
+            <StackPanel>
+                <Button
+            Name="btn_deel"
+            Click="btn_Deel_Click"
             IsEnabled="False">
-            Stand
-        </Button>
+                    Deel
+                </Button>
+            </StackPanel>
+        </Viewbox>
+
+        <Viewbox
+            Grid.Column="3"
+            Grid.Row="1"
+            Margin="20">
+        <StackPanel>
+            <Button
+            Name="btn_hit"
+            Click="Btn_Hit_Click"
+            IsEnabled="False">
+                Hit
+            </Button>
+        </StackPanel>
+        </Viewbox>
+        <Viewbox
+            Grid.Column="3"
+            Grid.Row="2"
+            Margin="20">
+            <StackPanel>
+            <Button
+            Name="btn_stand"
+            Click="Btn_Stand_Click"
+            IsEnabled="False">
+                Stand
+            </Button>
+        </StackPanel>
+        </Viewbox>
+        <Viewbox
+            Grid.Column="3"
+            Grid.Row="3"
+            Margin="20">
+        <StackPanel>            
+                <Button
+            Name="nieuw_spel" Click="Nieuw_Spel_Click">
+                    Nieuw Spel
+                </Button>            
+        </StackPanel>
+</Viewbox>
         <TextBox
             Name="txt_speler"
+            Margin="10"
             Grid.RowSpan="2"
-            Grid.Row="1"
-            Margin="20"
+            Grid.Row="2"
             >
 
         </TextBox>
+
         <TextBox
             Name="txt_Bank"
+            Margin="10"
             Grid.RowSpan="2"
-            Grid.Row="1"
-            Grid.Column="2"
-            Margin="20">
+            Grid.Row="2"
+            Grid.Column="4">
 
         </TextBox>
+        <Viewbox
+            Grid.Column="2"
+            Grid.Row="1">
+        <TextBlock
+            IsEnabled="False"
+            Background="Gray"
+            Margin="20"
+            Name="inzet_txt">
+            0
+        </TextBlock>
+        </Viewbox>
+        <Viewbox
+            Grid.Column="2"
+            Grid.Row="2"
+            Margin="20">
+            <TextBlock
+            IsEnabled="False"
+            Background="Gray"
+            Name="kapitaal_txt">
+                100
+            </TextBlock>
+        </Viewbox>
+        <Slider
+            Grid.Row="1"
+            Margin="20"
+            Name="Inzet_Slider" 
+            ValueChanged="Inzet_Slider_ValueChanged"
+            TickFrequency="1"
+            IsSnapToTickEnabled="True"
+            >
+        </Slider>
+        <Viewbox
+            Name="Vieuwbox_Speler"
+            Grid.Column="1"
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="2">
 
+        </Viewbox>
+        <Viewbox
+            Name="Vieuwbox_Bank"
+            Grid.Column="3"
+            Grid.Row="4"
+            Grid.RowSpan="2">
+
+        </Viewbox>
 
     </Grid>
 </Window>

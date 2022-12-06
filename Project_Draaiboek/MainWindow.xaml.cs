@@ -22,20 +22,152 @@ namespace Porject_Draaiboek
     {
         private int SpelerHeeftAas = 0;
         private int BankHeeftAas = 0;
-        private int spelerpunten = 0;
-        private int bankpunten = 0;
-        private bool IsBeurt = true;
-        private Random random = new Random();
+        private int SpelerPunten = 0;
+        private int BankPunten = 0;
+        bool IsGewonnenOfVerloren = false;
+        private Random Random = new Random();
 
         List<int> getallen;
         public MainWindow()
         {
             InitializeComponent();
         }
-        //mss opsliten 
-        private string trek_nummer()
+        //hit moet disabled worden en delen van een kaart duurt 1sec
+        //private void geefkaart() { 
+            
+        //}
+        private void KapitaalOnderNull(string kapitaal)
         {
-            int number = random.Next(1, 14);
+            int waarde = Convert.ToInt32(kapitaal);
+            if (waarde == 0)
+            {
+                MessageBox.Show("Je hebt niet genoeg kapitaal",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                    );
+                nieuw_spel.IsEnabled = true;
+                btn_deel.IsEnabled = false;
+                btn_hit.IsEnabled = false;
+                btn_stand.IsEnabled = false;
+
+            }
+            else
+            {
+
+            }
+        }
+        private void SliderMaxEnMin()
+        {
+            Inzet_Slider.Minimum = Math.Round(Convert.ToDouble(kapitaal_txt.Text) / 10);
+            Inzet_Slider.Maximum = Convert.ToDouble(kapitaal_txt.Text);
+
+            inzet_txt.Text = Convert.ToString(Inzet_Slider.Value);
+        }
+        private void KapitaalOptellenOfAftrekken()
+        {
+            if (uitkomst_txt.Content == "gewonnen")
+            {
+                kapitaal_txt.Text = Convert.ToString(Convert.ToInt32(kapitaal_txt.Text) + Convert.ToInt32(inzet_txt.Text));
+            }
+            else if (uitkomst_txt.Content == "verloren")
+            {
+                kapitaal_txt.Text = Convert.ToString(Convert.ToInt32(kapitaal_txt.Text) - Convert.ToInt32(inzet_txt.Text));
+            }
+            else
+            {
+
+            }
+        }
+        private int HeeftAasSpeler()
+        {
+            if (SpelerPunten > 21 & SpelerHeeftAas > 0)
+            {
+                SpelerHeeftAas -= 1;
+                SpelerPunten -= 10;
+            }
+            else
+            {
+
+            }
+            return SpelerPunten;         
+            
+        }
+        private int HeeftAasbank()
+        {
+            if (BankPunten > 21 & BankHeeftAas > 0)
+            {
+                BankPunten -= 10;
+                BankHeeftAas -= 1;
+
+
+            }
+            return BankPunten;
+        }
+        private int WaardeKaart(string getal)
+        {
+            int nummer;
+            if (getal == "boer" || getal == "koningin" || getal == "koning")
+            {
+                nummer = 10;
+            }
+            else if (getal == "aas")
+            {
+                nummer = 11;
+                SpelerHeeftAas += 1;
+            }
+            else
+            {
+                nummer = Convert.ToInt32(getal);
+            }
+            SpelerPunten += nummer;
+            return SpelerPunten;
+        }
+        private string HeeftGewonnen()
+        {
+            string uitkomst = "";
+
+            if (SpelerPunten > 21)
+            {
+                uitkomst = "verloren";
+            }
+            else if (BankPunten > 21)
+            {
+                uitkomst = "gewonnen";
+            }
+            else if (SpelerPunten == BankPunten)
+            {
+                uitkomst = "push";
+            }
+            else if (SpelerPunten > BankPunten & BankPunten < 21)
+            {
+                uitkomst = "gewonnen";
+            }
+            else
+            {
+                uitkomst = "verloren";
+            }
+            return uitkomst;
+        }
+        private string CheckVerlorenHit()
+        {
+            string uitkomst = "";
+            if (SpelerPunten > 21)
+            {
+                uitkomst = "verloren";
+                btn_stand.IsEnabled = false;
+                btn_hit.IsEnabled = false;
+                btn_deel.IsEnabled = true;
+            }
+            else
+            {
+
+            }
+            return uitkomst;
+        }
+        private string Trek_Nummer()
+        {
+            int number = Random.Next(1, 14);
             string uitput = "";
             switch (number)
             {
@@ -84,10 +216,10 @@ namespace Porject_Draaiboek
 
             return uitput;
         }
-        private string trek_teken()
+        private string Trek_Teken()
         {
 
-            int teken = random.Next(1, 5);
+            int teken = Random.Next(1, 5);
             string uitput = "";
 
 
@@ -108,29 +240,9 @@ namespace Porject_Draaiboek
             }
             return uitput;
         }
-        //private string trek_kaart()
-        //{
-        //    string kaart = trek_nummer() + trek_teken();
-        //    return kaart;
-        //}
-        private void btn_deel_Click(object sender, RoutedEventArgs e)
+        private int BankPuntenTellen(string bank1)
         {
-            int speler1n = 0;
-            int speler2n = 0;
             int bank1n = 0;
-
-            string bank1 = trek_nummer();
-            txt_Bank.Text += bank1;
-            txt_Bank.Text += trek_teken();
-            string speler1 = trek_nummer();
-            txt_speler.Text += speler1;
-            txt_speler.Text += trek_teken();
-            string speler2 = trek_nummer();
-            txt_speler.Text += speler2;
-            txt_speler.Text += trek_teken();
-            btn_deel.IsEnabled = false;
-            btn_hit.IsEnabled = true;
-            btn_stand.IsEnabled = true;
 
             if (bank1 == "boer" || bank1 == "koningin" || bank1 == "koning")
             {
@@ -145,131 +257,146 @@ namespace Porject_Draaiboek
             {
                 bank1n = Convert.ToInt32(bank1);
             }
+            
+            return bank1n;
+        }
+        private int SpelerPuntenTellen(string speler)
+        {
+            int speler1n = 0;
 
-            if (speler1 == "boer" || speler1 == "koningin" || speler1 == "koning")
+            if (speler == "boer" || speler == "koningin" || speler == "koning")
             {
                 speler1n = 10;
             }
-            else if (speler1 == "aas")
+            else if (speler == "aas")
             {
                 speler1n = 11;
                 SpelerHeeftAas += 1;
             }
-            else if (Convert.ToInt32(speler1) > 0)
-            {
-                speler1n = Convert.ToInt32(speler1);
-            }
-
-            if (speler2 == "boer" || speler2 == "koningin" || speler2 == "koning")
-            {
-                speler2n = 10;
-            }
-            else if (speler2 == "aas")
-            {
-                speler2n = 11;
-                SpelerHeeftAas += 1;
-            }
-            else if (Convert.ToInt32(speler2) > 0)
-            {
-                speler2n = Convert.ToInt32(speler2);
-            }
-
-            spelerpunten = speler2n + speler1n;
-            bankpunten = bank1n;
-
-            bank_ptn.Content = bankpunten;
-            speler_ptn.Content = spelerpunten;
-        }
-        private void btn_stand_Click(object sender, RoutedEventArgs e)
-        {
-            btn_hit.IsEnabled = false;
-
-            while (bankpunten <= 16)
-            {
-                int bank1n = 0;
-
-                string bank1 = trek_nummer();
-                txt_Bank.Text += bank1;
-                txt_Bank.Text += trek_teken();
-
-                if (bank1 == "boer" || bank1 == "koningin" || bank1 == "koning")
-                {
-                    bank1n = 10;
-                }
-                else if (bank1 == "aas")
-                {
-                    bank1n = 11;
-                    BankHeeftAas += 1;
-                }
-                else if (Convert.ToInt32(bank1) > 0)
-                {
-                    bank1n = Convert.ToInt32(bank1);
-                }
-
-                bankpunten += bank1n;
-
-                bank_ptn.Content = bankpunten;
-            }
-
-            if (spelerpunten > 21 & SpelerHeeftAas > 0)
-            {
-                spelerpunten -= 10;
-                speler_ptn.Content = spelerpunten;
-            }
-            if (bankpunten > 21 & BankHeeftAas > 0)
-            {
-                bankpunten -= 10;
-                bank_ptn.Content = bankpunten;
-            }
-
-            if (spelerpunten > 21)
-            {
-                uitkomst_txt.Content = "verloren";
-            }
-            else if (bankpunten > 21)
-            {
-                uitkomst_txt.Content = "gewonnen";
-            }
-            else if (spelerpunten == bankpunten)
-            {
-                uitkomst_txt.Content = "push";
-            }
-            else if (spelerpunten > bankpunten & bankpunten < 21)
-            {
-                uitkomst_txt.Content = "gewonnen";
-            }
-            else
-            {
-                uitkomst_txt.Content = "verloren";
-            }
-        }
-        private void btn_hit_Click(object sender, RoutedEventArgs e)
-        {
-
-            int spelern = 0;
-
-            string speler = trek_nummer();
-            txt_speler.Text += speler + trek_teken();
-
-            if (speler == "boer" || speler == "koningin" || speler == "koning")
-            {
-                spelern = 10;
-            }
-            else if (speler == "aas")
-            {
-                spelern = 11;
-                SpelerHeeftAas += 1;
-            }
             else if (Convert.ToInt32(speler) > 0)
             {
-                spelern = Convert.ToInt32(speler);
+                speler1n = Convert.ToInt32(speler);
             }
-            spelerpunten += spelern;
-            speler_ptn.Content = spelerpunten;
+            return speler1n;
+        }
+        private void btn_Deel_Click(object sender, RoutedEventArgs e)
+        {
+            Inzet_Slider.IsEnabled = false;
+
+            SliderMaxEnMin();
+
+            uitkomst_txt.Content = string.Empty;
+                txt_Bank.Text = string.Empty;
+                txt_speler.Text = string.Empty;
+                uitkomst_txt.Content = string.Empty;
+                bank_ptn.Content = "0";
+                speler_ptn.Content = "0";
+                btn_deel.IsEnabled = true;
+                btn_hit.IsEnabled = false;
+                btn_stand.IsEnabled = false;
+            
+            string bank1 = Trek_Nummer();
+            txt_Bank.Text += bank1;
+            txt_Bank.Text += Trek_Teken();
+            string speler1 = Trek_Nummer();
+            txt_speler.Text += speler1;
+            txt_speler.Text += Trek_Teken();
+            string speler2 = Trek_Nummer();
+            txt_speler.Text += speler2;
+            txt_speler.Text += Trek_Teken();
+            btn_deel.IsEnabled = false;
+            btn_hit.IsEnabled = true;
+            btn_stand.IsEnabled = true;
+
+            SpelerPunten = SpelerPuntenTellen(speler2) + SpelerPuntenTellen(speler1);
+            BankPunten = BankPuntenTellen(bank1);
+
+            
+            speler_ptn.Content = SpelerPunten;
+            bank_ptn.Content = BankPunten;
+
+            uitkomst_txt.Content = CheckVerlorenHit();
+
+            KapitaalOnderNull(kapitaal_txt.Text);
+        }
+        private void Btn_Stand_Click(object sender, RoutedEventArgs e)
+        {
+            btn_hit.IsEnabled = false;
+            Inzet_Slider.IsEnabled = true;
+
+            bank_ptn.Content = HeeftAasbank();
+
+            while (BankPunten <= 16 && HeeftAasbank() != 0)
+            {
+
+                string bank1 = Trek_Nummer();
+                txt_Bank.Text += bank1;
+                txt_Bank.Text += Trek_Teken();
+
+
+                BankPunten += BankPuntenTellen(bank1);
+
+                bank_ptn.Content = BankPunten;
+                bank_ptn.Content = HeeftAasbank();
+            }
+
+
+            speler_ptn.Content = HeeftAasSpeler();
+
+            uitkomst_txt.Content = HeeftGewonnen();
+
+            btn_stand.IsEnabled = false;
+
+            KapitaalOptellenOfAftrekken();
+
+            KapitaalOnderNull(kapitaal_txt.Text);
         }
 
+        
+        private void Btn_Hit_Click(object sender, RoutedEventArgs e)
+        {
+            SliderMaxEnMin();
+
+            string Speler = Trek_Nummer();
+            txt_speler.Text += Speler + Trek_Teken();
+
+            
+            
+            speler_ptn.Content = WaardeKaart(Speler);
+
+            bank_ptn.Content = HeeftAasbank();
+
+            speler_ptn.Content = HeeftAasSpeler();
+
+            uitkomst_txt.Content = CheckVerlorenHit();
+
+            KapitaalOptellenOfAftrekken();
+
+            KapitaalOnderNull(kapitaal_txt.Text);
+        }
+
+        private void Nieuw_Spel_Click(object sender, RoutedEventArgs e)
+        {
+                uitkomst_txt.Content = string.Empty;
+                txt_Bank.Text = string.Empty;
+                txt_speler.Text = string.Empty;
+                uitkomst_txt.Content = string.Empty;
+                bank_ptn.Content = "0";
+                speler_ptn.Content = "0";
+                btn_deel.IsEnabled = true;
+                btn_hit.IsEnabled = false;
+                btn_stand.IsEnabled = false;
+                kapitaal_txt.Text = "100";
+        }
+
+        private void Inzet_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+            btn_deel.IsEnabled = true;
+
+            SliderMaxEnMin();
+
+            KapitaalOnderNull(kapitaal_txt.Text);
+        }
     }
-
-
-
 }
