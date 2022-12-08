@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Porject_Draaiboek
 {
@@ -24,18 +25,48 @@ namespace Porject_Draaiboek
         private int BankHeeftAas = 0;
         private int SpelerPunten = 0;
         private int BankPunten = 0;
-        bool IsGewonnenOfVerloren = false;
         private Random Random = new Random();
+        DispatcherTimer  Seconden = new DispatcherTimer();
 
-        List<int> getallen;
         public MainWindow()
         {
             InitializeComponent();
         }
         //hit moet disabled worden en delen van een kaart duurt 1sec
-        //private void geefkaart() { 
-            
-        //}
+
+        private void TimerDeel()
+        {
+            Seconden.Interval = TimeSpan.FromMilliseconds(1000);
+            //DispatcherTimer.Tick += ;
+            Seconden.Start();
+        }
+        private void SpelerKaart()
+        {
+            string Speler = Trek_Nummer();
+            string TekenSpeler = Trek_Teken();
+            txt_speler.Text += Speler + " " + TekenSpeler + "\n";
+
+
+            SpelerPunten += SpelerPuntenTellen(Speler);
+
+
+
+            speler_ptn.Content = SpelerPunten;
+
+            SpelerKaartFoto.Source = new BitmapImage(new Uri($"/assets/{Speler + TekenSpeler}.png", UriKind.Relative));
+        }
+        private void BankKaart()
+        {
+            string bank1 = Trek_Nummer();
+            string bankteken = Trek_Teken();
+            txt_Bank.Text += bank1 + " " + bankteken + "\n";
+
+            BankPunten += BankPuntenTellen(bank1);
+
+            bank_ptn.Content = BankPunten;
+
+            BankKaartFoto.Source = new BitmapImage(new Uri($"/assets/{bank1 + bankteken}.png", UriKind.Relative));
+        }
         private void KapitaalOnderNull(string kapitaal)
         {
             int waarde = Convert.ToInt32(kapitaal);
@@ -151,13 +182,16 @@ namespace Porject_Draaiboek
         }
         private string CheckVerlorenHit()
         {
+            HeeftAasSpeler();
+
             string uitkomst = "";
+
             if (SpelerPunten > 21)
             {
                 uitkomst = "verloren";
                 btn_stand.IsEnabled = false;
                 btn_hit.IsEnabled = false;
-                btn_deel.IsEnabled = true;
+                Inzet_Slider.IsEnabled = true;
             }
             else
             {
@@ -226,16 +260,16 @@ namespace Porject_Draaiboek
             switch (teken)
             {
                 case 1:
-                    uitput += " harten\n";
+                    uitput += "harten";
                     break;
                 case 2:
-                    uitput += " ruiten\n";
+                    uitput += "ruiten";
                     break;
                 case 3:
-                    uitput += " klaveren\n";
+                    uitput += "klaveren";
                     break;
                 case 4:
-                    uitput += " schoppen\n";
+                    uitput += "schoppen";
                     break;
             }
             return uitput;
@@ -290,35 +324,22 @@ namespace Porject_Draaiboek
                 txt_speler.Text = string.Empty;
                 uitkomst_txt.Content = string.Empty;
                 bank_ptn.Content = "0";
-                speler_ptn.Content = "0";
-                btn_deel.IsEnabled = true;
-                btn_hit.IsEnabled = false;
-                btn_stand.IsEnabled = false;
-            
-            string bank1 = Trek_Nummer();
-            txt_Bank.Text += bank1;
-            txt_Bank.Text += Trek_Teken();
-            string speler1 = Trek_Nummer();
-            txt_speler.Text += speler1;
-            txt_speler.Text += Trek_Teken();
-            string speler2 = Trek_Nummer();
-            txt_speler.Text += speler2;
-            txt_speler.Text += Trek_Teken();
+                speler_ptn.Content = "0";            
             btn_deel.IsEnabled = false;
             btn_hit.IsEnabled = true;
             btn_stand.IsEnabled = true;
 
-            SpelerPunten = SpelerPuntenTellen(speler2) + SpelerPuntenTellen(speler1);
-            BankPunten = BankPuntenTellen(bank1);
-
+            SpelerKaart();
+            SpelerKaart();
+            BankKaart();
             
-            speler_ptn.Content = SpelerPunten;
-            bank_ptn.Content = BankPunten;
-
+    HeeftAasSpeler();
             uitkomst_txt.Content = CheckVerlorenHit();
 
             KapitaalOnderNull(kapitaal_txt.Text);
-        }
+
+    }        
+
         private void Btn_Stand_Click(object sender, RoutedEventArgs e)
         {
             btn_hit.IsEnabled = false;
@@ -329,12 +350,8 @@ namespace Porject_Draaiboek
             while (BankPunten <= 16 && HeeftAasbank() != 0)
             {
 
-                string bank1 = Trek_Nummer();
-                txt_Bank.Text += bank1;
-                txt_Bank.Text += Trek_Teken();
 
-
-                BankPunten += BankPuntenTellen(bank1);
+                BankKaart();
 
                 bank_ptn.Content = BankPunten;
                 bank_ptn.Content = HeeftAasbank();
@@ -357,12 +374,7 @@ namespace Porject_Draaiboek
         {
             SliderMaxEnMin();
 
-            string Speler = Trek_Nummer();
-            txt_speler.Text += Speler + Trek_Teken();
-
-            
-            
-            speler_ptn.Content = WaardeKaart(Speler);
+            SpelerKaart();
 
             bank_ptn.Content = HeeftAasbank();
 
@@ -383,20 +395,27 @@ namespace Porject_Draaiboek
                 uitkomst_txt.Content = string.Empty;
                 bank_ptn.Content = "0";
                 speler_ptn.Content = "0";
-                btn_deel.IsEnabled = true;
+                btn_deel.IsEnabled = false;
                 btn_hit.IsEnabled = false;
                 btn_stand.IsEnabled = false;
                 kapitaal_txt.Text = "100";
+            Inzet_Slider.IsEnabled = true;
+
         }
 
         private void Inzet_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 
             btn_deel.IsEnabled = true;
+            nieuw_spel.IsEnabled = true;
 
             SliderMaxEnMin();
 
             KapitaalOnderNull(kapitaal_txt.Text);
+            
+                SpelerPunten = 0;
+                BankPunten = 0;
+                SpelerPunten = 0;
         }
     }
 }

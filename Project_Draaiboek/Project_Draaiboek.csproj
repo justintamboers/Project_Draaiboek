@@ -95,64 +95,173 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\10ruiten.png" />
-    <Resource Include="assets\2ruiten.png" />
-    <Resource Include="assets\3ruiten.png" />
-    <Resource Include="assets\4ruiten.png" />
-    <Resource Include="assets\5ruiten.png" />
-    <Resource Include="assets\6ruiten.png" />
-    <Resource Include="assets\7ruiten.png" />
-    <Resource Include="assets\8ruiten.png" />
-    <Resource Include="assets\9ruiten.png" />
-    <Resource Include="assets\aasruiten.png" />
-    <Resource Include="assets\boerruiten.png" />
-    <Resource Include="assets\koninginruiten.png" />
-    <Resource Include="assets\koningruiten.png" />
+    <Resource Include="Assets\10ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\2ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\3ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\4ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\5ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\6ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\7ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\8ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\9ruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\aasruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\boerruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\koninginruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\koningruiten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\10harten.png" />
-    <Resource Include="assets\2harten.png" />
-    <Resource Include="assets\3harten.png" />
-    <Resource Include="assets\4harten.png" />
-    <Resource Include="assets\5harten.png" />
-    <Resource Include="assets\6harten.png" />
-    <Resource Include="assets\7harten.png" />
-    <Resource Include="assets\8harten.png" />
-    <Resource Include="assets\9harten.png" />
-    <Resource Include="assets\aasharten.png" />
-    <Resource Include="assets\boerharten.png" />
-    <Resource Include="assets\koningharten.png" />
-    <Resource Include="assets\koninginharten.png" />
+    <Resource Include="Assets\10harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\2harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\3harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\4harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\5harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\6harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\7harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\8harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\9harten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\aasharten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\boerharten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\koningharten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\koninginharten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\10klaveren.png" />
-    <Resource Include="assets\2klaveren.png" />
-    <Resource Include="assets\3klaveren.png" />
-    <Resource Include="assets\4klaveren.png" />
-    <Resource Include="assets\5klaveren.png" />
-    <Resource Include="assets\6klaveren.png" />
-    <Resource Include="assets\7klaveren.png" />
-    <Resource Include="assets\8klaveren.png" />
-    <Resource Include="assets\9klaveren.png" />
-    <Resource Include="assets\aasklaveren.png" />
-    <Resource Include="assets\boerklaveren.png" />
-    <Resource Include="assets\koninginklaveren.png" />
-    <Resource Include="assets\koningklaveren.png" />
+    <Resource Include="Assets\10klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\2klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\3klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\4klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\5klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\6klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\7klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\8klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\9klaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\aasklaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\boerklaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\koninginklaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\koningklaveren.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\10schoppen.png" />
-    <Resource Include="assets\2schoppen.png" />
-    <Resource Include="assets\3schoppen.png" />
-    <Resource Include="assets\4schoppen.png" />
-    <Resource Include="assets\5schoppen.png" />
-    <Resource Include="assets\6schoppen.png" />
-    <Resource Include="assets\7schoppen.png" />
-    <Resource Include="assets\8schoppen.png" />
-    <Resource Include="assets\9schoppen.png" />
-    <Resource Include="assets\aasschoppen.png" />
-    <Resource Include="assets\boerschoppen.png" />
-    <Resource Include="assets\koninginschoppen.png" />
-    <Resource Include="assets\koningschoppen.png" />
+    <Resource Include="Assets\10schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\2schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\3schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\4schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\5schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\6schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\7schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\8schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\9schoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\aasschoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\boerschoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\koninginschoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\koningschoppen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\kaartachterkant.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
