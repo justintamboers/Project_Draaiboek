@@ -22,6 +22,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.3*"></RowDefinition>
         </Grid.RowDefinitions>
         <Viewbox HorizontalAlignment="Left">
         <Label
@@ -130,12 +131,24 @@
             Grid.Column="3"
             Grid.Row="3"
             Margin="20">
-        <StackPanel>            
+            <StackPanel>
                 <Button
             Name="nieuw_spel" Click="Nieuw_Spel_Click"
                     IsEnabled="False">
                     Nieuw Spel
-                </Button>            
+                </Button>
+            </StackPanel>
+        </Viewbox>
+        <Viewbox
+            Grid.Column="4"
+            Grid.Row="1"
+            Margin="20">
+        <StackPanel>            
+                <Button
+            Name="Btn_DoubleDown" Click="Btn_DoubleDown_Click"
+                    IsEnabled="False">
+                        Double Down
+                    </Button>            
         </StackPanel>
 </Viewbox>
         <TextBox
@@ -187,7 +200,6 @@
             >
         </Slider>
         <Viewbox
-            Name="Vieuwbox_Speler"
             Grid.Column="1"
             Grid.Row="4"
             Grid.ColumnSpan="2"
@@ -196,6 +208,23 @@
                 <Image Source="/assets/kaartachterkant.png" Name="SpelerKaartFoto"></Image>
             </ListBox>
 
+        </Viewbox>
+        <Viewbox
+            Grid.Column="0"
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="2"
+            Visibility="Visible">
+            <ListBox Name="Alle_Kaarten">
+            </ListBox>
+
+        </Viewbox>
+        <Viewbox
+            Grid.Column="4"
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="2">
+            <ListBox Name="Alle_Kaarten_Bank"></ListBox>
         </Viewbox>
         <Viewbox
             Name="Vieuwbox_Bank"
@@ -207,6 +236,14 @@
 </ListBox>
 
         </Viewbox>
-
+        <StatusBar
+            Grid.Row="6"
+            Grid.ColumnSpan="5">
+            <StatusBarItem>historiek</StatusBarItem>
+            <StatusBarItem>Last Game</StatusBarItem>
+            <StatusBarItem                
+                HorizontalAlignment="Right">
+                <TextBlock Text="hh:mm:ss" Name="TxtTijd"/></StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
