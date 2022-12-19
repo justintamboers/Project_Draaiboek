@@ -87,6 +87,14 @@
             Kapitaal:
         </Label>
 </Viewbox>
+        <Viewbox 
+                 Grid.Column="1"
+                 >
+            <Label FontSize="20"
+                   Name="Aantal_KaartenOver">
+                52
+            </Label>
+        </Viewbox>
         <Viewbox
             Grid.Column="3"
             Grid.Row="0"
@@ -206,6 +214,17 @@
             Grid.RowSpan="2">
             <ListBox>
                 <Image Source="/assets/kaartachterkant.png" Name="SpelerKaartFoto"></Image>
+            </ListBox>
+
+        </Viewbox>
+        <Viewbox
+            Grid.Column="1"
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="2"
+            Visibility="Hidden">
+            <ListBox>
+                <Image Source="/assets/kaartachterkant.png" Name="DoubleDown_Kaart"></Image>
             </ListBox>
 
         </Viewbox>

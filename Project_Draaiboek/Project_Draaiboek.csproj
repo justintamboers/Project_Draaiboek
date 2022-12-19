@@ -259,9 +259,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\kaartachterkant.png">
+    <Resource Include="Assets\kaartachterkant.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
