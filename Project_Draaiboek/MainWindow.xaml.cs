@@ -22,141 +22,173 @@ namespace Porject_Draaiboek
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int SpelerHeeftAas = 0;
-        private int BankHeeftAas = 0;
-        private int SpelerPunten = 0;
-        private int BankPunten = 0;
-        private Random Random = new Random();
-        DispatcherTimer  Seconden = new DispatcherTimer();
-        DispatcherTimer  SecondenStand = new DispatcherTimer();
-        private DispatcherTimer Klok = new DispatcherTimer();
-        private int AantalKaartenSpeler = 0;
-        private bool IsSpeler = false;
-        private bool IsKaartGenomen = false;
-        private string[] KaartenDeck = {"aasharten", "2harten" , "3harten" , "4harten" , "5harten" ,"6harten" ,"7harten" ,"8harten" ,"9harten" ,"10harten" ,"boerharten" ,"koninginharten" ,"koningharten",
+        private int spelerHeeftAas = 0;
+        private int bankHeeftAas = 0;
+        private int spelerPunten = 0;
+        private int bankPunten = 0;
+        private Random random = new Random();
+        DispatcherTimer  seconden = new DispatcherTimer();
+        DispatcherTimer  secondenStand = new DispatcherTimer();
+        private DispatcherTimer klok = new DispatcherTimer();
+        private int aantalKaartenSpeler = 0;
+        private bool isSpeler = false;
+        private bool isKaartGenomen = false;
+        private string[] kaartenDeck = {"aasharten", "2harten" , "3harten" , "4harten" , "5harten" ,"6harten" ,"7harten" ,"8harten" ,"9harten" ,"10harten" ,"boerharten" ,"koninginharten" ,"koningharten",
         "aasruiten", "2ruiten" , "3ruiten" , "4ruiten" , "5ruiten" ,"6ruiten" ,"7ruiten" ,"8ruiten" ,"9ruiten" ,"10ruiten" ,"boerruiten" ,"koninginruiten" ,"koningruiten",
                 "aasklaveren", "2klaveren" , "3klaveren" , "4klaveren" , "5klaveren" ,"6klaveren" ,"7klaveren" ,"8klaveren" ,"9klaveren" ,"10klaveren" ,"boerklaveren" ,"koninginklaveren" ,"koningklaveren",
                 "aasschoppen", "2schoppen" , "3schoppen" , "4schoppen" , "5schoppen" ,"6schoppen" ,"7schoppen" ,"8schoppen" ,"9schoppen" ,"10schoppen" ,"boerschoppen" ,"koninginschoppen" ,"koningschoppen" };
-        private bool IsDoubleDown = false;
+        private bool isDoubleDown = false;
+        private List<string> deckInGebruik;
         public MainWindow()
         {
             InitializeComponent();
-            Klok.Interval = new TimeSpan(0, 0, 1);
-            Klok.Tick += Klok_Tick;
-            Klok.Start();
+            klok.Interval = new TimeSpan(0, 0, 1);
+            klok.Tick += Klok_Tick;
+            klok.Start();
             TxtTijd.Text = DateTime.Now.ToLongTimeString();
-            Seconden.Interval = TimeSpan.FromMilliseconds(1000);
-            Seconden.Tick += KaartDelen;
-            SecondenStand.Interval = TimeSpan.FromMilliseconds(1000);
-            SecondenStand.Tick += StandDelen;            
+            seconden.Interval = TimeSpan.FromMilliseconds(1000);
+            seconden.Tick += KaartDelen;
+            secondenStand.Interval = TimeSpan.FromMilliseconds(1000);
+            secondenStand.Tick += StandDelen;
+            deckInGebruik = kaartenDeck.ToList();
         }
         private void Klok_Tick(object sender, EventArgs e)
         {
             TxtTijd.Text = DateTime.Now.ToLongTimeString();
         }
-        private void TimerStand()
-        {
-            SecondenStand.Start();
-        }
         private void TimerDeel()
         {
-            Seconden.Start();
+            seconden.Start();
             btn_hit.IsEnabled = false;
             btn_stand.IsEnabled = false ;
+            Btn_DoubleDown.IsEnabled = false ;
         }  
         private void KaartDelen(object sender, EventArgs e)
         {
-            if (AantalKaartenSpeler < 2)
+            if (aantalKaartenSpeler < 2)
             {
                 SpelerKaart();
-                AantalKaartenSpeler++;
+                aantalKaartenSpeler++;
             }
             else
             {
+                isSpeler = false;
                 BankKaart();
-                Seconden.Stop();
+                seconden.Stop();
                 btn_hit.IsEnabled = true;
                 btn_stand.IsEnabled = true;
+                Btn_DoubleDown.IsEnabled = true;
+                isSpeler = true;
             }
         }
         private void SpelerKaart()
         {
-            string Speler = Trek_Nummer();
-            string TekenSpeler = Trek_Teken();
-            txt_speler.Text += Speler + " " + TekenSpeler + "\n";
+            string spelerNummer = Trek_Nummer();
+            string tekenSpeler = Trek_Teken();
+            
+            KaartenDeckGebruiken(tekenSpeler, spelerNummer);
 
-            KaartenDeckGebruiken(TekenSpeler, Speler);
-
-            SpelerPunten += SpelerPuntenTellen(Speler);
-
-            speler_ptn.Content = HeeftAasSpeler();
-
-            speler_ptn.Content = SpelerPunten;
-
-            SpelerKaartFoto.Source = new BitmapImage(new Uri($"/assets/{Speler + TekenSpeler}.png", UriKind.Relative));
-            Image afbeelding = new Image();
-            afbeelding.Source = new BitmapImage(new Uri($"/assets/{Speler + TekenSpeler}.png", UriKind.Relative));
-            Alle_Kaarten.Items.Add(afbeelding);
         }
         private void KaartenDeckGebruiken(string teken, string nummer)
         {
-            List<string> DeckInGebruik = KaartenDeck.ToList();
-            string Kaart = teken + nummer;
+            
+            string kaart = nummer + teken;
 
-            for (int i = 0; i < DeckInGebruik.Count; i++)
-            {
-                if (Kaart != DeckInGebruik[i])
-                {
-                    IsKaartGenomen = true;
-                }
-                else if (IsKaartGenomen == false)
-                {
-                    DeckInGebruik.RemoveAt(i);
+                if (deckInGebruik.Contains(kaart))
+                {                 
+                    deckInGebruik.Remove(kaart);
+                    isKaartGenomen = true;
+                    int AantalKaarten = deckInGebruik.Count;
+                    Aantal_KaartenOver.Content = AantalKaarten;
+
+                GeefBankOfSpelerZijnVisueleKaart(teken, nummer);
                 }
                 else
-                {
-                    GeefKaartenSpelerBank(IsSpeler);
-                }
-                int AantalKaarten = DeckInGebruik.Count;
-                Aantal_KaartenOver.Content = AantalKaarten;
-            }    
+                { 
+                    GeefKaartenSpelerBank(isSpeler);
+                }   
             
         }
+        private void GeefBankOfSpelerZijnVisueleKaart(string teken , string nummer)
+        {
+            if (isSpeler)
+            {
+                txt_speler.Text += nummer + " " + teken + "\n";
 
+                spelerPunten += SpelerPuntenTellen(nummer);
+
+                speler_ptn.Content = HeeftAasSpeler();
+
+                speler_ptn.Content = spelerPunten;
+
+                SpelerKaartFoto.Source = new BitmapImage(new Uri($"/assets/{nummer + teken}.png", UriKind.Relative));
+                Image afbeelding = new Image();
+                afbeelding.Source = new BitmapImage(new Uri($"/assets/{nummer + teken}.png", UriKind.Relative));
+                Alle_Kaarten.Items.Add(afbeelding);
+            }
+            else if (isDoubleDown)
+            {
+                txt_speler.Text += nummer + " " + teken + "\n";
+
+
+
+                spelerPunten += SpelerPuntenTellen(nummer);
+
+                speler_ptn.Content = HeeftAasSpeler();
+
+                speler_ptn.Content = spelerPunten;
+
+                BitmapImage afbeelding = new BitmapImage();
+                afbeelding = new BitmapImage(new Uri($"/assets/{nummer + teken}.png", UriKind.Relative));
+                afbeelding.Rotation = Rotation.Rotate90;
+                DoubleDown_Kaart.Source = new BitmapImage(new Uri($"/assets/{nummer + teken}.png", UriKind.Relative));
+                Alle_Kaarten.Items.Add(afbeelding);
+                isDoubleDown = false;
+            }
+            else
+            {
+
+                txt_Bank.Text += nummer + " " + teken + "\n";
+
+                bankPunten += BankPuntenTellen(nummer);
+
+                bank_ptn.Content = HeeftAasbank();
+
+                bank_ptn.Content = bankPunten;
+
+                BankKaartFoto.Source = new BitmapImage(new Uri($"/assets/{nummer + teken}.png", UriKind.Relative));
+                Image afbeelding = new Image();
+                afbeelding.Source = new BitmapImage(new Uri($"/assets/{nummer + teken}.png", UriKind.Relative));
+                Alle_Kaarten_Bank.Items.Add(afbeelding);
+            }
+        }
         
         private void BankKaart()
         {
             string bank1 = Trek_Nummer();
             string bankteken = Trek_Teken();
-            txt_Bank.Text += bank1 + " " + bankteken + "\n";
-
+            
             KaartenDeckGebruiken(bankteken, bank1);
 
-            BankPunten += BankPuntenTellen(bank1);
-
-            bank_ptn.Content = HeeftAasbank();
-
-            bank_ptn.Content = BankPunten;
-
-            BankKaartFoto.Source = new BitmapImage(new Uri($"/assets/{bank1 + bankteken}.png", UriKind.Relative));
-            Image afbeelding = new Image();
-            afbeelding.Source = new BitmapImage(new Uri($"/assets/{bank1 + bankteken}.png", UriKind.Relative));
-            Alle_Kaarten_Bank.Items.Add(afbeelding);
+        }
+        private void TimerStand()
+        {
+            secondenStand.Start();
         }
         private void StandDelen(object sender, EventArgs e)
         {
-            if (BankPunten < 17)
+            if (bankPunten < 17)
             {
+                isSpeler = false;
                 BankKaart();
 
             }
             else
             {
-                SecondenStand.Stop();
 
 
                 uitkomst_txt.Content = HeeftGewonnen();
-                if (true)
+                if (isDoubleDown)
                 {
                     KapitaalOptellenOfAftrekken();
                     KapitaalOptellenOfAftrekken();
@@ -167,10 +199,11 @@ namespace Porject_Draaiboek
                 }
                 
                 KapitaalOnderNull(kapitaal_txt.Text);
+                secondenStand.Stop();
             }
         }
-        private void GeefKaartenSpelerBank(bool IsSpeler) {
-            if (IsSpeler)
+        private void GeefKaartenSpelerBank(bool isSpeler) {
+            if (isSpeler)
             {
                 SpelerKaart();
             }
@@ -224,28 +257,28 @@ namespace Porject_Draaiboek
         }
         private int HeeftAasSpeler()
         {
-            if (SpelerPunten > 21 & SpelerHeeftAas > 0)
+            if (spelerPunten > 21 & spelerHeeftAas > 0)
             {
-                SpelerHeeftAas -= 1;
-                SpelerPunten -= 10;
+                spelerHeeftAas -= 1;
+                spelerPunten -= 10;
             }
             else
             {
 
             }
-            return SpelerPunten;         
+            return spelerPunten;         
             
         }
         private int HeeftAasbank()
         {
-            if (BankPunten > 21 & BankHeeftAas > 0)
+            if (bankPunten > 21 & bankHeeftAas > 0)
             {
-                BankPunten -= 10;
-                BankHeeftAas -= 1;
+                bankPunten -= 10;
+                bankHeeftAas -= 1;
 
 
             }
-            return BankPunten;
+            return bankPunten;
         }
         private int WaardeKaart(string getal)
         {
@@ -257,32 +290,32 @@ namespace Porject_Draaiboek
             else if (getal == "aas")
             {
                 nummer = 11;
-                SpelerHeeftAas += 1;
+                spelerHeeftAas += 1;
             }
             else
             {
                 nummer = Convert.ToInt32(getal);
             }
-            SpelerPunten += nummer;
-            return SpelerPunten;
+            spelerPunten += nummer;
+            return spelerPunten;
         }
         private string HeeftGewonnen()
         {
             string uitkomst = "";
 
-            if (SpelerPunten > 21)
+            if (spelerPunten > 21)
             {
                 uitkomst = "verloren";
             }
-            else if (BankPunten > 21)
+            else if (bankPunten > 21)
             {
                 uitkomst = "gewonnen";
             }
-            else if (SpelerPunten == BankPunten)
+            else if (spelerPunten == bankPunten)
             {
                 uitkomst = "push";
             }
-            else if (SpelerPunten > BankPunten & BankPunten < 21)
+            else if (spelerPunten > bankPunten & bankPunten < 21)
             {
                 uitkomst = "gewonnen";
             }
@@ -298,7 +331,7 @@ namespace Porject_Draaiboek
 
             string uitkomst = "";
 
-            if (SpelerPunten > 21)
+            if (spelerPunten > 21)
             {
                 uitkomst = "verloren";
                 btn_stand.IsEnabled = false;
@@ -313,7 +346,7 @@ namespace Porject_Draaiboek
         }
         private string Trek_Nummer()
         {
-            int number = Random.Next(1, 14);
+            int number = random.Next(1, 14);
             string uitput = "";
             switch (number)
             {
@@ -365,7 +398,7 @@ namespace Porject_Draaiboek
         private string Trek_Teken()
         {
 
-            int teken = Random.Next(1, 5);
+            int teken = random.Next(1, 5);
             string uitput = "";
 
 
@@ -397,7 +430,7 @@ namespace Porject_Draaiboek
             else if (bank1 == "aas")
             {
                 bank1n = 11;
-                BankHeeftAas += 1;
+                bankHeeftAas += 1;
             }
             else if (Convert.ToInt32(bank1) > 0)
             {
@@ -417,7 +450,7 @@ namespace Porject_Draaiboek
             else if (speler == "aas")
             {
                 speler1n = 11;
-                SpelerHeeftAas += 1;
+                spelerHeeftAas += 1;
             }
             else if (Convert.ToInt32(speler) > 0)
             {
@@ -441,7 +474,7 @@ namespace Porject_Draaiboek
             btn_hit.IsEnabled = true;
             btn_stand.IsEnabled = true;
             Btn_DoubleDown.IsEnabled = true;
-            IsSpeler = true;
+            isSpeler = true;
 
             TimerDeel();
             TimerDeel();
@@ -472,7 +505,7 @@ namespace Porject_Draaiboek
 
             SliderMaxEnMin();
 
-            GeefKaartenSpelerBank(IsSpeler);
+            GeefKaartenSpelerBank(isSpeler);
 
             bank_ptn.Content = HeeftAasbank();
 
@@ -511,6 +544,7 @@ namespace Porject_Draaiboek
 
             btn_deel.IsEnabled = true;
             nieuw_spel.IsEnabled = true;
+            Btn_DoubleDown.IsEnabled = false;
 
             SliderMaxEnMin();
 
@@ -529,17 +563,17 @@ namespace Porject_Draaiboek
             BankKaartFoto.Source = new BitmapImage(new Uri("/assets/kaartachterkant.png", UriKind.Relative));
             SpelerKaartFoto.Source = new BitmapImage(new Uri("/assets/kaartachterkant.png", UriKind.Relative));
 
-            SpelerPunten = 0;
-                BankPunten = 0;
-                SpelerPunten = 0;
-            AantalKaartenSpeler = 0;
+            spelerPunten = 0;
+                bankPunten = 0;
+                spelerPunten = 0;
+            aantalKaartenSpeler = 0;
         }
         private void DoubleDoownFunctie()
         {
-            int AantalInzet = Convert.ToInt32(inzet_txt.Text);
-            int AantalKapitaal = Convert.ToInt32(kapitaal_txt.Text);
+            int aantalInzet = Convert.ToInt32(inzet_txt.Text);
+            int aantalKapitaal = Convert.ToInt32(kapitaal_txt.Text);
 
-            if (AantalInzet > AantalKapitaal/2)
+            if (aantalInzet > aantalKapitaal/2)
             {
                 MessageBox.Show("Je hebt niet genoeg kapitaal",
                     "Error",
@@ -551,29 +585,17 @@ namespace Porject_Draaiboek
             }
             else
             {
-                IsDoubleDown = true;
-                inzet_txt.Text = Convert.ToString(AantalInzet * 2);
+                isDoubleDown = true;
+                isSpeler = false;
+                inzet_txt.Text = Convert.ToString(aantalInzet * 2);
                 Btn_DoubleDown.IsEnabled = false;
                 Inzet_Slider.IsEnabled = true;
+                string nummer = Trek_Nummer();
+                string teken = Trek_Teken();
+
+                KaartenDeckGebruiken(teken, nummer);
+
                 TimerStand();
-                string Speler = Trek_Nummer();
-            string TekenSpeler = Trek_Teken();
-            txt_speler.Text += Speler + " " + TekenSpeler + "\n";
-
-            KaartenDeckGebruiken(TekenSpeler, Speler);
-
-            SpelerPunten += SpelerPuntenTellen(Speler);
-
-            speler_ptn.Content = HeeftAasSpeler();
-
-            speler_ptn.Content = SpelerPunten;
-
-            DoubleDown_Kaart.Source = new BitmapImage(new Uri($"/assets/{Speler + TekenSpeler}.png", UriKind.Relative));
-            Image afbeelding = new Image();
-            afbeelding.Source = new BitmapImage(new Uri($"/assets/{Speler + TekenSpeler}.png", UriKind.Relative));
-                RotateTransform transform = new RotateTransform(90);
-                afbeelding.RenderTransform = transform;
-                Alle_Kaarten.Items.Add(afbeelding);
             }
 
 
@@ -585,7 +607,7 @@ namespace Porject_Draaiboek
             btn_hit.IsEnabled = false;
             btn_stand.IsEnabled = false;
 
-            //;
+            
            
             DoubleDoownFunctie();
 
