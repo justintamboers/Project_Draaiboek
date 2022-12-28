@@ -256,12 +256,12 @@
 </ListBox>
 
         </Viewbox>
-        <TextBox Grid.Column="2"
+        <ListBox Grid.Column="2"
                  Grid.ColumnSpan="2"
-                 Grid.Row="4"
-                 Grid.RowSpan="2"
+                 Grid.Row="2"
+                 Grid.RowSpan="4"
                  Visibility="Hidden"
-                 Name="txt_historiek"></TextBox>
+                 Name="txt_historiek"></ListBox>
         <StatusBar
             Grid.Row="6"
             Grid.ColumnSpan="5">
