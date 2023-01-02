@@ -268,7 +268,7 @@
             Grid.Row="6"
             Grid.ColumnSpan="5">
             <StatusBarItem MouseEnter="StatusBarItem_MouseEnter" MouseLeave="StatusBarItem_MouseLeave">historiek</StatusBarItem>
-            <StatusBarItem Height="21" VerticalAlignment="Top" Name="Laatste_Spel">Last Game</StatusBarItem>
+            <StatusBarItem Height="21" Name="Laatste_Spel">Last Game</StatusBarItem>
             <StatusBarItem                
                 HorizontalAlignment="Right">
                 <TextBlock Text="hh:mm:ss" Name="TxtTijd"/></StatusBarItem>
