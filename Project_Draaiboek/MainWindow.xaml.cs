@@ -381,10 +381,11 @@ namespace Porject_Draaiboek
                     MessageBoxButton.OK,
                     MessageBoxImage.Error
                     );
-                nieuw_spel.IsEnabled = true;
+                Inzet_Slider.Visibility = Visibility.Hidden;
                 btn_deel.IsEnabled = false;
                 btn_hit.IsEnabled = false;
                 btn_stand.IsEnabled = false;
+                Inzet_Slider.IsEnabled = false;
 
             }
             else
@@ -706,6 +707,7 @@ namespace Porject_Draaiboek
         private void Nieuw_Spel_Click(object sender, RoutedEventArgs e)
         {
             uitkomst_txt.Content = string.Empty;
+            Inzet_Slider.Visibility = Visibility.Visible;
             txt_historiek.Items.Clear();
             txt_Bank.Text = string.Empty;
             txt_speler.Text = string.Empty;
