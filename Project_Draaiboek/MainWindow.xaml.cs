@@ -768,7 +768,7 @@ namespace Porject_Draaiboek
             aantalKaartenSpeler = 0;
         }
         /// <summary>
-        /// kijkt of je genoeg kapitaal hebt voor doubledown zo ja trek je een kaart zet je die zijwaad anders krijg je een messagebox 
+        /// kijkt of je genoeg kapitaal hebt voor doubledown zo ja trek je een kaart zet je die zijwaards en doe je Timerstand anders krijg je een messagebox 
         /// </summary>
         private void DoubleDoownFunctie()
         {
@@ -804,9 +804,13 @@ namespace Porject_Draaiboek
 
 
         }
+        /// <summary>
+        /// disabeld hit en stand en doet de functie DoubleDoownFunctie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_DoubleDown_Click(object sender, RoutedEventArgs e)
         {
-            btn_deel.IsEnabled = false;
             btn_hit.IsEnabled = false;
             btn_stand.IsEnabled = false;
 
