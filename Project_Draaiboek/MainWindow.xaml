@@ -164,6 +164,7 @@
             Margin="10"
             Grid.RowSpan="2"
             Grid.Row="2"
+            IsReadOnly="True"
             >
 
         </TextBox>
@@ -173,7 +174,8 @@
             Margin="10"
             Grid.RowSpan="2"
             Grid.Row="2"
-            Grid.Column="4">
+            Grid.Column="4"
+            IsReadOnly="True">
 
         </TextBox>
         <Viewbox
