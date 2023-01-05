@@ -386,8 +386,14 @@ namespace Porject_Draaiboek
                 btn_hit.IsEnabled = false;
                 btn_stand.IsEnabled = false;
                 Inzet_Slider.IsEnabled = false;
+                aantalKaartenSpeler = 0;
+                spelerHeeftAas = 0;
+             bankHeeftAas = 0;
+            spelerPunten = 0;
+            bankPunten = 0;
+            rondeNummer = 1;
 
-            }
+    }
             else
             {
 
@@ -717,7 +723,6 @@ namespace Porject_Draaiboek
             btn_deel.IsEnabled = false;
             btn_hit.IsEnabled = false;
             btn_stand.IsEnabled = false;
-            rondeNummer = 0;
             kapitaal_txt.Text = "100";
             Inzet_Slider.IsEnabled = true;
             Alle_Kaarten.Items.Clear();
@@ -727,6 +732,12 @@ namespace Porject_Draaiboek
             deckInGebruik = kaartenDeck.ToList();
             int AantalKaarten = deckInGebruik.Count;
             Aantal_KaartenOver.Content = AantalKaarten;
+            aantalKaartenSpeler = 0;
+            spelerHeeftAas = 0;
+            bankHeeftAas = 0;
+            spelerPunten = 0;
+            bankPunten = 0;
+            rondeNummer = 1;
 
             BankKaartFoto.Source = new BitmapImage(new Uri("/assets/kaartachterkant.png", UriKind.Relative));
             SpelerKaartFoto.Source = new BitmapImage(new Uri("/assets/kaartachterkant.png", UriKind.Relative));
