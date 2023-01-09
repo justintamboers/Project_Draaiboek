@@ -237,7 +237,7 @@
             Grid.ColumnSpan="2"
             Grid.RowSpan="2"
             Visibility="Visible">
-            <ListBox Name="Alle_Kaarten">
+            <ListBox Name="Alle_Kaarten" Visibility="Hidden">
             </ListBox>
 
         </Viewbox>
@@ -246,7 +246,7 @@
             Grid.Row="4"
             Grid.ColumnSpan="2"
             Grid.RowSpan="2">
-            <ListBox Name="Alle_Kaarten_Bank"></ListBox>
+            <ListBox Name="Alle_Kaarten_Bank" Visibility="Hidden"></ListBox>
         </Viewbox>
         <Viewbox
             Name="Vieuwbox_Bank"

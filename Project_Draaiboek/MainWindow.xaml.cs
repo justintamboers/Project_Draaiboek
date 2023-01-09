@@ -655,6 +655,8 @@ namespace Porject_Draaiboek
             btn_stand.IsEnabled = true;
             Btn_DoubleDown.IsEnabled = true;
             isSpeler = true;
+            Alle_Kaarten.Visibility = Visibility.Visible;
+            Alle_Kaarten_Bank.Visibility = Visibility.Visible;
 
             TimerDeel();
             TimerDeel();
@@ -737,7 +739,9 @@ namespace Porject_Draaiboek
             bankHeeftAas = 0;
             spelerPunten = 0;
             bankPunten = 0;
-            rondeNummer = 1;
+            rondeNummer = 1; 
+            Alle_Kaarten.Visibility = Visibility.Hidden;
+            Alle_Kaarten_Bank.Visibility = Visibility.Hidden;
 
             BankKaartFoto.Source = new BitmapImage(new Uri("/assets/kaartachterkant.png", UriKind.Relative));
             SpelerKaartFoto.Source = new BitmapImage(new Uri("/assets/kaartachterkant.png", UriKind.Relative));
